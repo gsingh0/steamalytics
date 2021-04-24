@@ -1,0 +1,30 @@
+{
+  "name": "service",
+  "version": "1.0.0",
+  "description": "REST api for the steamalytics application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gsingh0/steamalytics.git"
+  },
+  "keywords": [
+    "server",
+    "service",
+    "rest",
+    "api",
+    "backend"
+  ],
+  "author": "Gurnoor Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gsingh0/steamalytics/issues"
+  },
+  "homepage": "https://github.com/gsingh0/steamalytics#readme",
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
+}
