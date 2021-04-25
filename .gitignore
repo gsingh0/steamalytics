@@ -5,6 +5,9 @@ node_modules/**/*
 /.pnp
 .pnp.js
 
+# csv data
+src/api/scripts/database/data/**/*
+
 # testing
 /coverage
 

@@ -11,23 +11,25 @@ const steamConfig = require('../config/steam-api-config.json');
 
 const steamApi = steamConfig.steamApi;
 
-let getPlayerCount = (request, response) => {
+let getPlayerCount = (req, res) => {
     axios.get(steamApi.url + '/ISteamUserStats/GetNumberOfCurrentPlayers/v1/')
         .then(response => {
-            response.send(response.data);
+            res.send(response.data);
         })
         .catch(error => {
-            response.send(error);
+            res.send(error);
         })
 }
 
-let getAllGames = (request, response) => {
+let getAllGames = (req, res) => {
     axios.get(steamApi.url + '/ISteamApps/GetAppList/v2/')
         .then(response => {
-            response.send(response.data);
+            console.log(response);
+            res.send(response.data);
         })
         .catch(error => {
-            response.send(error);
+            console.log("err " + error);
+            res.send(error);
         })
 }
 
