@@ -11,6 +11,9 @@ node_modules/**/*
 # production
 /build
 
+# credential files
+src/api/service/config/steamalytics-firebase-adminsdk-v5awp-74c6fcca48.json
+
 # misc
 .DS_Store
 .env.local

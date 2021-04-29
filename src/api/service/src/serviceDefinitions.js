@@ -2,7 +2,7 @@
 const axios = require('axios');
 
 // object dependencies
-// 
+const FileParser = require('../../scripts/database/fileParser');
 //
 
 // configuration dependencies
@@ -10,6 +10,7 @@ const steamConfig = require('../config/steam-api-config.json');
 
 
 const steamApi = steamConfig.steamApi;
+var fileParser = new FileParser();
 
 let getPlayerCount = (req, res) => {
     axios.get(steamApi.url + '/ISteamUserStats/GetNumberOfCurrentPlayers/v1/')

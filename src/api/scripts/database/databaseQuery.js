@@ -1,21 +1,47 @@
 const csv = require('csv-parser');
 const fs = require('fs');
 const axios = require('axios');
+const sleep = require('../../service/util/Thread');
+const Firebase = require('../../service/src/firebase');
+const FileParser = require('./fileParser');
+
 
 var csvGamesList = new Map();
 var apiGamesList = [];
 var databaseGamesMap = new Map(); // for data processing
 var databaseGamesList = []; // for final database storage
+var batchList = [];
+var firebase = new Firebase();
+var fileParser = new FileParser();
 
 main();
 
 async function main() {
-    await parseCsvGameData();
-    await fetchApiSteamGames();
-    await crossCheckLists();
-    await convertDatabaseList();
-    await sortList();
-    await printList();
+    try {
+        await parseCsvGameData();
+        await fetchApiSteamGames();
+        await crossCheckLists();
+        await convertDatabaseList();
+        await sortList(); 
+
+        // for file implementation
+            // await fileParser.write(JSON.stringify({data: databaseGamesList}));
+
+
+        // for debugging
+            // await printList();
+
+        // for database implementation
+        // await initalizeBatchList();
+            // debugging
+                // databaseGamesList = [{data: 0}, {data: 0}, {data: 0}, {data: 0}, {data: 0}];
+                // await firebase.addMultiple('games', databaseGamesList);
+        // await executeBatchProcess();
+        // console.log("firebase data updated successfully");
+    } catch (error) {
+        console.log("error: " + error);
+    }
+
 }
 
 async function printList() {
@@ -30,6 +56,42 @@ async function sortList() {
         databaseGamesList.sort(function (a, b) { return b.rating - a.rating });
         resolve(databaseGamesList);
     })
+}
+
+async function executeBatchProcess() {
+    return new Promise(async (resolve, reject) => {
+        try {
+            for (let i = 0; i < batchList.length; i++) {
+                await firebase.database.enableNetwork();
+                console.log("batch process " + i + " started");
+                await firebase.addMultiple('games', batchList[i]);
+                console.log("batch process " + i + " completed");
+                await firebase.database.disableNetwork();
+                await sleep(5000);
+            }
+            resolve(batchList);
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
+async function initalizeBatchList() {
+    return new Promise((resolve, reject) => {
+        let capacity = 400;
+        let batch = [];
+        for (let i = 0; i < databaseGamesList.length; i++) {
+            if (batch.length == capacity) {
+                batchList.push(batch);
+                batch = [];
+            }
+            batch.push(databaseGamesList[i]);
+            if (i == databaseGamesList.length - 1) {
+                batchList.push(batch);
+            }
+        }
+        resolve(batchList);
+    });
 }
 
 async function convertDatabaseList() {

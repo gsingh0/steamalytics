@@ -8,6 +8,10 @@ node_modules/**/*
 # csv data
 src/api/scripts/database/data/**/*
 
+# credential files
+src/api/service/config/steamalytics-firebase-adminsdk-v5awp-74c6fcca48.json
+
+
 # testing
 /coverage
 
