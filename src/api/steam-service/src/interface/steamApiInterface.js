@@ -5,9 +5,7 @@ const GameDataInterface = require('./gameDataInterface');
 class SteamApiInterface {
     constructor() {
         this.gameDataInterface = new GameDataInterface();
-        this.playerCountData = null;
         this.steamApi = steamConfig.steamApi;
-        this.NUM_GAMES = 10;
     }
 
     async init() {
@@ -15,14 +13,21 @@ class SteamApiInterface {
     }
 
     async fetchPlayerCountData() {
-        return new Promise((resolve, reject) => {
-            axios.get(this.steamApi.url + '/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=' + this.gameDataInterface.getGameData().data[0].appid)
-                .then(response => {
-                    resolve(response.data.response.player_count);
-                })
-                .catch(error => {
-                    reject(error);
-                })
+        return new Promise(async (resolve, reject) => {
+            try {
+                let gameData = this.gameDataInterface.getGameData();
+                let playerCountData = [];
+                for (let i = 0; i < gameData.length; i++) {
+                    let name = gameData[i].name;
+                    let appid = gameData[i].appid;
+                    let response = await axios.get(this.steamApi.url + '/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=' + appid);
+                    let playerCount = response.data.response.player_count;
+                    playerCountData.push({ name: name, playerCount: playerCount });
+                }
+                resolve(playerCountData);
+            } catch (error) {
+                reject(error);
+            }
         })
     }
 }

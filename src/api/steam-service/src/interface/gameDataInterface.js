@@ -4,6 +4,7 @@ class GameDataInterface {
     constructor() {
         this.fileParser = new FileParser();
         this.gameData = null;
+        this.NUM_GAMES = 10;
     }
 
     async init() {
@@ -14,6 +15,7 @@ class GameDataInterface {
         return new Promise(async (resolve, reject) => {
             try {
                 let gameData = await this.fileParser.read();
+                gameData = gameData.data.slice(0, this.NUM_GAMES);
                 resolve(gameData);
             } catch (error) {
                 reject(error);
@@ -22,11 +24,7 @@ class GameDataInterface {
     }
 
     getGameData(n) {
-        if (typeof(n) !== "undefined") {
-            return this.gameData.slice(0, n);
-        } else {
-            return this.gameData;
-        }
+        return this.gameData;
     }
 }
 

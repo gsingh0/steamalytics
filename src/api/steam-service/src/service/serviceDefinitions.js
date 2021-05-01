@@ -1,23 +1,26 @@
-const ServiceManager = require('./serviceManager');
+const SteamApiInterface = require('../interface/steamApiInterface');
 
 class ServiceDefinitions {
     constructor() {
-        this.serviceManager = new ServiceManager();
+        this.steamApiInterface = new SteamApiInterface();
     }
 
-    async init() {
-        await this.serviceManager.init();
+    async init(port) {
+        await this.steamApiInterface.init();
     }
 
     getPlayerCount = async (req, res) => {
         try {
-            let gameData = await this.serviceManager.steamApiInterface.fetchPlayerCountData();
+            let gameData = await this.steamApiInterface.fetchPlayerCountData();
             res.send({ status: "Ok", statusCode: 200, data: gameData });
         } catch (error) {
             res.send({ status: "Error", statusCode: 400, errorMessage: error });
         }
     }
 
+    /**
+     * TESTING PURPOSES
+     */
     getAllGames = (req, res) => {
         axios.get(steamApi.url + '/ISteamApps/GetAppList/v2/')
             .then(response => {

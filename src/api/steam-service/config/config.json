@@ -1,5 +1,8 @@
 {
     "development": {
         "port": 8080
+    },
+    "production": {
+        "port": 3000
     }
 }
