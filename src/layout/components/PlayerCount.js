@@ -3,6 +3,7 @@ import socketIOClient from 'socket.io-client';
 import io from 'socket.io/client-dist/socket.io'
 import { GET_PLAYER_COUNT } from '../../enum/steamServicePathsEnum';
 import appConfig from '../../config/app-config.json';
+import { CircleLoading } from 'react-loadingg';
 
 class PlayerCount extends Component {
     constructor() {
@@ -37,15 +38,15 @@ class PlayerCount extends Component {
         let fields;
         let playerCountData = this.state.playerCountData;
         if (playerCountData.length !== 0) {
-            fields = playerCountData.map((value) => {
-                return <p>Game: {value.name} ; Player Count: {value.playerCount}</p> 
+            fields = playerCountData.map((value, index) => {
+                return <p key={index}>No. {index + 1}; Game: {value.name} ; Player Count: {value.playerCount}</p> 
             })
             return (
                 fields
             )
         } else {
             return (
-                <p>Loading...</p>
+                <CircleLoading></CircleLoading>
             )
         }
     }

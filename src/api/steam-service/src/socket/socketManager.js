@@ -21,7 +21,7 @@ class SocketManager {
                 this.ws.on('connection', async (socket) => {
                     console.log("New client connected! [CLIENT_NUM]=" + this.ws.clients.size);
                     if (this.playerCountTask == null) {
-                        this.playerCountTask = await this.socketDefinitions.createPollPlayerCountTask(socket, this.steamApiInterface);
+                        this.playerCountTask = await this.socketDefinitions.createPollPlayerCountTask(this.ws, this.steamApiInterface);
                     }
 
                     if (!this.isPlayerCountTaskRunning) {
@@ -40,6 +40,7 @@ class SocketManager {
                 if (this.playerCountTask != null && this.isPlayerCountTaskRunning) {
                     this.stopPlayerCountTask();
                 } 
+                console.log(error);
                 reject(error);
             }
         });

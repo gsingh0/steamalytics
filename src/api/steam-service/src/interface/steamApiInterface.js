@@ -6,6 +6,7 @@ class SteamApiInterface {
     constructor() {
         this.gameDataInterface = new GameDataInterface();
         this.steamApi = steamConfig.steamApi;
+        this.PLAYER_COUNT_BATCH_LIMIT = 30;
     }
 
     async init() {
@@ -20,12 +21,25 @@ class SteamApiInterface {
                 for (let i = 0; i < gameData.length; i++) {
                     let name = gameData[i].name;
                     let appid = gameData[i].appid;
-                    let response = await axios.get(this.steamApi.url + '/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=' + appid);
-                    let playerCount = response.data.response.player_count;
-                    playerCountData.push({ name: name, playerCount: playerCount });
+                    await axios({
+                        method: 'get',
+                        url: this.steamApi.url + '/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=' + appid,
+                        maxContentLength: Number.MAX_VALUE,
+                        maxBodyLength: Number.MAX_VALUE
+                    })
+                    .then((response) => {
+                        let playerCount = response.data.response.player_count;
+                        playerCountData.push({ name: name, playerCount: playerCount });
+                    })
+                    .catch((error) => {
+                        let playerCount = -1;
+                        playerCountData.push({ name: name, playerCount: playerCount });
+                    });
                 }
+                playerCountData.sort((a, b) => b.playerCount - a.playerCount);
                 resolve(playerCountData);
             } catch (error) {
+                console.log(error);
                 reject(error);
             }
         })
