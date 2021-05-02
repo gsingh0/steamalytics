@@ -1,30 +1,61 @@
 const Websocket = require('ws');
 const uuid = require('uuid');
+const SocketDefinitions = require('./socketDefinitions');
 
 class SocketManager {
-    constructor(server) {
+    constructor(server, steamApiInterface) {
         this.ws = new Websocket.Server({ server: server});
+        this.steamApiInterface = steamApiInterface;
+        this.socketDefinitions = new SocketDefinitions();
+        this.playerCountTask = null;
+        this.isPlayerCountTaskRunning = false;
     }
 
     async init() {
-        await this.socketTest();
+        await this.enableSocketInstance();
     }
 
-    async socketTest() {
+    async enableSocketInstance() {
         return new Promise((resolve, reject) => {
             try {
-                this.ws.on('connection', (socket) => {
-                    console.log("connected: " + this.ws.clients.size);
-                    socket.send("hello");
-                    socket.on('close', () => {
-                        console.log("user connection closed!" + this.ws.clients.size);
+                this.ws.on('connection', async (socket) => {
+                    console.log("New client connected! [CLIENT_NUM]=" + this.ws.clients.size);
+                    if (this.playerCountTask == null) {
+                        this.playerCountTask = await this.socketDefinitions.createPollPlayerCountTask(socket, this.steamApiInterface);
+                    }
+
+                    if (!this.isPlayerCountTaskRunning) {
+                        this.startPlayerCountTask();
+                    }
+                    
+                    socket.on('close', () => { 
+                        console.log("Client disconnected! [CLIENT_NUM]=" + this.ws.clients.size)
+                        if (this.ws.clients.size == 0) {
+                            this.stopPlayerCountTask();
+                        }
                     })
                 })
-                resolve(this.io);
+                resolve(this.ws);
             } catch (error) {
+                if (this.playerCountTask != null && this.isPlayerCountTaskRunning) {
+                    this.stopPlayerCountTask();
+                } 
                 reject(error);
             }
         });
+    }
+
+    startPlayerCountTask() {
+        this.playerCountTask.start();
+        this.isPlayerCountTaskRunning = true;
+        console.log("cron job started!");
+    }
+
+    stopPlayerCountTask() {
+        this.playerCountTask.stop();
+        this.isPlayerCountTaskRunning = false;
+        this.playerCountTask == null;
+        console.log("cron job stopped!");
     }
 }
 

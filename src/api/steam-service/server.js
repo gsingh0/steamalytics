@@ -27,6 +27,6 @@ app.get(apiPaths.GET_ALL_GAMES, serviceDefinitions.getAllGames);
 
 // api initialization
 const server = app.listen(PORT, () => console.log("Server running on port " + PORT));
-socketManager = new SocketManager(server);
 serviceDefinitions.init();
+socketManager = new SocketManager(server, serviceDefinitions.steamApiInterface);
 socketManager.init();

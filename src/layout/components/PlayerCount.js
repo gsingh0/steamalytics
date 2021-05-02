@@ -7,20 +7,21 @@ import appConfig from '../../config/app-config.json';
 class PlayerCount extends Component {
     constructor() {
         super();
-        let socketUrl = appConfig.endpoints.environment.development.socketUrl;
-        this.socket = new WebSocket(socketUrl);
+        this.socketUrl = appConfig.endpoints.environment.development.socketUrl;
+        this.socket = null;
         this.state = {
-            msg: ""
+            playerCountData: []
         }
     }
 
     componentDidMount() {
+        this.socket = new WebSocket(this.socketUrl);
         this.socket.onopen = () => {
             console.log("socket connection established!");
         }
 
-        this.socket.onmessage = async (res) => {
-            this.setState({ msg: res.data })
+        this.socket.onmessage = (res) => {
+            this.setState({ playerCountData: JSON.parse(res.data) })
         }
 
         this.socket.onclose = () => {
@@ -28,10 +29,19 @@ class PlayerCount extends Component {
         }
     }
 
+    componentWillUnmount() {
+        this.socket.close();
+    }
+
     render() {
-        if (this.state.msg.length != 0) {
+        let fields;
+        let playerCountData = this.state.playerCountData;
+        if (playerCountData.length !== 0) {
+            fields = playerCountData.map((value) => {
+                return <p>Game: {value.name} ; Player Count: {value.playerCount}</p> 
+            })
             return (
-                <p>Welcome {this.state.msg}</p>
+                fields
             )
         } else {
             return (
