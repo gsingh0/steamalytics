@@ -1,7 +1,5 @@
 import { Component } from 'react';
-import socketIOClient from 'socket.io-client';
-import io from 'socket.io/client-dist/socket.io'
-import { GET_PLAYER_COUNT } from '../../enum/steamServicePathsEnum';
+import '../../styles/PlayerCount.css'
 import appConfig from '../../config/app-config.json';
 import { CircleLoading } from 'react-loadingg';
 
@@ -39,14 +37,39 @@ class PlayerCount extends Component {
         let playerCountData = this.state.playerCountData;
         if (playerCountData.length !== 0) {
             fields = playerCountData.map((value, index) => {
-                return <p key={index}>No. {index + 1}; Game: {value.name} ; Player Count: {value.playerCount}</p> 
+                return (
+                    <tr key={index}>
+                        <td>{index + 1}</td>
+                        <td>{value.name}</td>
+                        <td>{value.playerCount}</td>
+                    </tr>
+                )
             })
             return (
-                fields
+                <div className="playerCountOuterBody">
+                    <div className="playerCountInnerBody">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td>No.</td>
+                                    <td>Game</td>
+                                    <td>Player Count</td>
+                                </tr>
+                                {fields}
+                            </thead>
+                        </table>
+                    </div>
+                </div>
             )
         } else {
             return (
-                <CircleLoading></CircleLoading>
+                <div className="playerCountOuterBody">
+                    <div className="playerCountInnerBody">
+                        <div className="playerCountLoadingIcon">
+                            <CircleLoading style={{}}></CircleLoading>
+                        </div>
+                    </div>
+                </div>
             )
         }
     }

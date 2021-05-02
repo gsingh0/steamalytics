@@ -1,10 +1,14 @@
 import { Component } from 'react';
 import PlayerCount from '../components/PlayerCount';
+import Header from '../components/Header';
 
 class Home extends Component {
     render() {
         return (
-            <PlayerCount></PlayerCount>
+            <div>
+                <Header></Header>
+                <PlayerCount></PlayerCount>
+            </div>
         )
     }
 }

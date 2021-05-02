@@ -1,0 +1,19 @@
+.playerCountOuterBody {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.playerCountInnerBody {
+    width: 50%;
+    height: 50vh;
+    text-align: left;
+    border-style: inset;
+    overflow: scroll;
+}
+
+.playerCountLoadingIcon {
+    display: flex;
+    justify-content: center;
+    margin-top: 20%;
+}
