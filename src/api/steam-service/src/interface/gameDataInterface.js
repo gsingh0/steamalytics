@@ -4,7 +4,7 @@ class GameDataInterface {
     constructor() {
         this.fileParser = new FileParser();
         this.gameData = null;
-        this.NUM_GAMES = 100;
+        this.NUM_GAMES = 10;
     }
 
     async init() {

@@ -2,7 +2,7 @@ const cron = require('node-cron');
 
 class SocketDefinitions {
     constructor() {
-        this.CRON_SCHEDULE = "*/30 * * * * *";
+        this.CRON_SCHEDULE = "*/10 * * * * *";
      }
 
     async createPollPlayerCountTask(ws, steamApiInterface) {
