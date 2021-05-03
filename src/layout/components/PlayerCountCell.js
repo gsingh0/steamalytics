@@ -1,8 +1,11 @@
 import { Component } from "react";
+import NumberEasing from 'react-number-easing';
+import AnimatedNumber from 'react-animated-number';
 
 class PlayerCountCell extends Component {
     constructor() {
         super();
+        this.formatNumber = new Intl.NumberFormat('en-US');
     }
 
     componentDidMount() {
@@ -13,9 +16,46 @@ class PlayerCountCell extends Component {
         clearInterval(this.timeout);
         console.log("timeout for " + this.props.state.name + " cleared!");
     }
-    
+
     render() {
-        return (<td>{this.props.state.playerCount}</td>)
+        return (
+            // <NumberEasing
+            //     value={this.props.state.playerCount}
+            //     speed={10000}
+            //     decimals={0}
+            //     ease='expoInOut' />
+            <AnimatedNumber component="span" value={this.props.state.playerCount}
+                style={{
+                    transition: '2s ease-in-out',
+                    fontSize: 14,
+                    transitionProperty:
+                        'background-color, color, opacity'
+                }}
+                frameStyle={perc =>
+                    {
+                        if (this.props.state.noise > 0) {
+                            // if (perc === 100) {
+                            //     return ({ })
+                            // } else {
+                            //     return ({ color: 'green' });
+                            // }
+                            return ({ color: 'green' });
+                        }
+                        if (this.props.state.noise < 0) {
+                            // if (perc === 100) {
+                            //     return ({ })
+                            // } else {
+                            //     return ({ color: 'red' });
+                            // }
+                            return ({ color: 'red' });
+                        }
+                        if (this.props.state.noise == 0) {
+                            return ({ color: 'black'});
+                        }
+                    }}
+                duration={8000}
+                formatValue={n => this.formatNumber.format(Math.floor(n))} />
+        )
     }
 }
 

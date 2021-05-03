@@ -1,7 +1,6 @@
 // library dependencies
 const express = require('express');
 const cors = require('cors');
-const Websocket = require('ws');
 
 // object dependencies
 const config = require('./config/config.json');
