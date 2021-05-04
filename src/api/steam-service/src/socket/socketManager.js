@@ -56,6 +56,7 @@ class SocketManager {
         this.playerCountTask.stop();
         this.isPlayerCountTaskRunning = false;
         this.playerCountTask == null;
+        this.socketDefinitions.clearTimeoutInterval();
         console.log("cron job stopped!");
     }
 }

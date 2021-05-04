@@ -29,11 +29,11 @@ class SteamApiInterface {
                     })
                     .then((response) => {
                         let playerCount = response.data.response.player_count;
-                        playerCountData.push({ name: name, playerCount: playerCount });
+                        playerCountData.push({ name: name, playerCount: playerCount, noise: 1 });
                     })
                     .catch((error) => {
                         let playerCount = -1;
-                        playerCountData.push({ name: name, playerCount: playerCount });
+                        playerCountData.push({ name: name, playerCount: playerCount, noise: 0 });
                     });
                 }
                 playerCountData.sort((a, b) => b.playerCount - a.playerCount);

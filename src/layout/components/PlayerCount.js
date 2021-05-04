@@ -17,34 +17,35 @@ class PlayerCount extends Component {
         }
     }
 
-    async constructPlayerCountState(data) {
+    async constructPlayerCountState(data, init) {
         let formattedPlayerCount = new Intl.NumberFormat('en-US');
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             let newState = {};
             for (let i = 0; i < data.length; i++) {
                 newState[data[i].name] = data[i];
+                if (init)
+                    newState[data[i].name]["noise"] = 1;
+                else
                 newState[data[i].name]["noise"] = 0;
-                // newState[data[i].name].playerCount = formattedPlayerCount.format(newState[data[i].name].playerCount);
             }
             resolve(newState);
         });
     }
 
     async noiseModel(name, state) {
+        if (name === "Dota 2")
+            console.log("creating new interval");
         let timeout = setInterval(() => {
-            // let formattedPlayerCount = new Intl.NumberFormat('en-US');
-            // console.log(formattedPlayerCount.format(Number(state.playerCount) + this.getRandomInteger(-25, 25)));
             let noise = this.getRandomInteger(-5, 5);
             state.noise = noise;
             state.playerCount = Number(state.playerCount) + noise;
-            // console.log(state.playerCount);
             this.setState(prevState => ({
                 playerCountData: {
                     ...prevState.playerCountData,
                     [name]: state,
                 }
             }))
-        }, this.getRandomInteger(10000, 15000));
+        }, this.getRandomInteger(2000, 10000));
         return timeout;
     }
 
@@ -52,37 +53,35 @@ class PlayerCount extends Component {
         return Math.floor(Math.random() * (max - min) + min);
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         console.log(this.apiUrl + '/player-count');
-        fetch(this.apiUrl + '/player-count')
-            .then(async (response) => {
-                console.log(response); // error rendering 
-                let newState = await this.constructPlayerCountState(JSON.parse(response.data));
-                this.setState({ playerCountData: newState }) 
-            })
-            .then(() => {
-                this.socket = new WebSocket(this.socketUrl);
-                this.socket.onopen = () => {
-                    console.log("socket connection established!");
-                }
+        try {
+            let response = await fetch(this.apiUrl + '/player-count');
+            response = await response.json();
+            // let newState = await this.constructPlayerCountState(response.data, true);
+            this.setState({ playerCountData: response.data });
 
-                this.socket.onmessage = async (res) => {
-                    let newState = await this.constructPlayerCountState(JSON.parse(res.data));
-                    this.setState({ playerCountData: newState })
-                }
+            this.socket = new WebSocket(this.socketUrl);
+            this.socket.onopen = () => {
+                console.log("socket connection established!");
+            }
 
-                this.socket.onclose = () => {
-                    console.log("socket connection closed")
-                }
+            this.socket.onmessage = async (res) => {
+                // let newState = await this.constructPlayerCountState(JSON.parse(res.data), false);
+                this.setState({ playerCountData: JSON.parse(res.data) })
+            }
 
-                this.socket.onerror = (error) => {
-                    this.setState({ error: true, errorText: error }, () => this.socket.close());
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-                this.setState({ error: true, errorText: error }, () => this.socket!== null? this.socket.close() : "");
-            })
+            this.socket.onclose = () => {
+                console.log("socket connection closed");
+                this.socket.close();
+            }
+
+            this.socket.onerror = (error) => {
+                this.setState({ error: true, errorText: error }, () => this.socket.close());
+            }
+        } catch (error) {
+            this.setState({ error: true, errorText: error.toString() }, () => this.socket !== null ? this.socket.close() : "");
+        }
     }
 
     componentWillUnmount() {
@@ -95,11 +94,13 @@ class PlayerCount extends Component {
         let fields;
         let playerCountData = this.state.playerCountData;
         if (this.state.error) {
-            <div className="playerCountOuterBody">
-                <div className="playerCountInnerBody">
-                    <p>{this.errorText}</p>
+            return (
+                <div className="playerCountOuterBody">
+                    <div className="playerCountInnerBody">
+                        <p>{this.state.errorText}</p>
+                    </div>
                 </div>
-            </div>
+            )
         }
         if (Object.entries(playerCountData).length !== 0) {
             fields = Object.entries(playerCountData).map((value, index) => {
@@ -108,7 +109,7 @@ class PlayerCount extends Component {
                         <td>{index + 1}</td>
                         <td>{value[1].name}</td>
                         <td>
-                            <PlayerCountCell state={value[1]} noiseModel={(name, state) => this.noiseModel(name, state)}></PlayerCountCell>
+                            <PlayerCountCell state={value[1]}></PlayerCountCell>
                         </td>
                     </tr>
                 )

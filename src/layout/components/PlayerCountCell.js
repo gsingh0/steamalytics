@@ -9,7 +9,7 @@ class PlayerCountCell extends Component {
     }
 
     componentDidMount() {
-        this.timeout = this.props.noiseModel(this.props.state.name, this.props.state);
+        // this.timeout = this.props.noiseModel(this.props.state.name, this.props.state);
     }
 
     componentWillUnmount() {
@@ -34,23 +34,10 @@ class PlayerCountCell extends Component {
                 frameStyle={perc =>
                     {
                         if (this.props.state.noise > 0) {
-                            // if (perc === 100) {
-                            //     return ({ })
-                            // } else {
-                            //     return ({ color: 'green' });
-                            // }
                             return ({ color: 'green' });
                         }
                         if (this.props.state.noise < 0) {
-                            // if (perc === 100) {
-                            //     return ({ })
-                            // } else {
-                            //     return ({ color: 'red' });
-                            // }
                             return ({ color: 'red' });
-                        }
-                        if (this.props.state.noise == 0) {
-                            return ({ color: 'black'});
                         }
                     }}
                 duration={8000}
