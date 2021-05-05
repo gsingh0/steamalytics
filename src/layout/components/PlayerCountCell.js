@@ -40,7 +40,7 @@ class PlayerCountCell extends Component {
                             return ({ color: 'red' });
                         }
                     }}
-                duration={8000}
+                duration={4000}
                 formatValue={n => this.formatNumber.format(Math.floor(n))} />
         )
     }

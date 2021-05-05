@@ -12,35 +12,39 @@ class SocketManager {
     }
 
     async init() {
-        await this.enableSocketInstance();
+        this.enableSocketInstance()
+            .then(() => this.startPlayerCountTask())
+            .catch((error) => console.log(error));
     }
 
     async enableSocketInstance() {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             try {
-                this.ws.on('connection', async (socket) => {
+                this.ws.on('connection', (socket) => {
                     console.log("New client connected! [CLIENT_NUM]=" + this.ws.clients.size);
-                    if (this.playerCountTask == null) {
-                        this.playerCountTask = await this.socketDefinitions.createPollPlayerCountTask(this.ws, this.steamApiInterface);
-                    }
+                    // this.startPlayerCountTask();
+                   
+                    // if (this.playerCountTask == null) {
+                    //     this.playerCountTask = await this.socketDefinitions.createPollPlayerCountTask(this.ws, this.steamApiInterface);
+                    // }
 
-                    if (!this.isPlayerCountTaskRunning) {
-                        this.startPlayerCountTask();
-                    }
+                    // if (!this.isPlayerCountTaskRunning) {
+                    //     this.startPlayerCountTask();
+                    // }
                     
                     socket.on('close', () => { 
                         console.log("Client disconnected! [CLIENT_NUM]=" + this.ws.clients.size)
-                        if (this.ws.clients.size == 0) {
-                            this.stopPlayerCountTask();
-                        }
+                        // if (this.ws.clients.size == 0) {
+                        //     this.stopPlayerCountTask();
+                        // }
                     })
                 })
+                this.playerCountTask = await this.socketDefinitions.createPollPlayerCountTask(this.ws, this.steamApiInterface);
                 resolve(this.ws);
             } catch (error) {
-                if (this.playerCountTask != null && this.isPlayerCountTaskRunning) {
-                    this.stopPlayerCountTask();
-                } 
-                console.log(error);
+                // if (this.playerCountTask != null && this.isPlayerCountTaskRunning) {
+                //     this.stopPlayerCountTask();
+                // } 
                 reject(error);
             }
         });
