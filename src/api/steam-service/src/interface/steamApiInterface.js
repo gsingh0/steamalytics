@@ -2,6 +2,7 @@ const axios = require('axios');
 const steamConfig = require('../../config/steam-api-config.json');
 const GameDataInterface = require('./gameDataInterface');
 const MultiThreading = require('../util/multithreading');
+const{ getRandomInteger } = require('../util/randomGenerator');
 
 class SteamApiInterface {
     constructor() {
@@ -32,7 +33,7 @@ class SteamApiInterface {
                         })
                         .then((response) => {
                             let playerCount = response.data.response.player_count;
-                            data.push({ name: name, playerCount: playerCount, noise: 1 });
+                            data.push({ name: name, playerCount: playerCount, noise: getRandomInteger(-1, 1) });
                         })
                         .catch((error) => {
                             let playerCount = -1;

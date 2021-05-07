@@ -13,7 +13,11 @@ class SocketManager {
 
     async init() {
         this.enableSocketInstance()
-            .then(() => this.startPlayerCountTask())
+            .then(async () => {
+                console.log("running initial interval!");
+                await this.socketDefinitions.pollPlayerCount(this.ws, this.steamApiInterface, false);
+                this.startPlayerCountTask()
+            })
             .catch((error) => console.log(error));
     }
 
@@ -53,7 +57,6 @@ class SocketManager {
     startPlayerCountTask() {
         this.playerCountTask.start();
         this.isPlayerCountTaskRunning = true;
-        console.log("cron job started!");
     }
 
     stopPlayerCountTask() {

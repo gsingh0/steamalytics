@@ -58,7 +58,6 @@ class PlayerCount extends Component {
         try {
             let response = await fetch(this.apiUrl + '/player-count');
             response = await response.json();
-            console.log(response);
             // let newState = await this.constructPlayerCountState(response.data, true);
             this.setState({ playerCountData: response.data });
 
@@ -134,10 +133,8 @@ class PlayerCount extends Component {
         } else {
             return (
                 <div className="playerCountOuterBody">
-                    <div className="playerCountInnerBody">
-                        <div className="playerCountLoadingIcon">
-                            <LoopCircleLoading style={{}}></LoopCircleLoading>
-                        </div>
+                    <div className="playerCountLoadingIcon">
+                        <LoopCircleLoading style={{}}></LoopCircleLoading>
                     </div>
                 </div>
             )

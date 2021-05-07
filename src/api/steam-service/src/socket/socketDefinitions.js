@@ -5,7 +5,8 @@ const addNoiseModel = require('../util/noise');
 
 class SocketDefinitions {
     constructor() {
-        this.CRON_SCHEDULE = "*/30 * * * * *";
+        this.CRON_COUNTER = 0; // count how many times cron job has run 
+        this.CRON_SCHEDULE = "*/5 * * * *";
         this.timeout = null;
         this.task = null;
      }
@@ -13,7 +14,7 @@ class SocketDefinitions {
     async createPollPlayerCountTask(ws, steamApiInterface) {
         return new Promise((resolve, reject) => {
             try {
-                this.task = cron.schedule(this.CRON_SCHEDULE, async () => await this.pollPlayerCount(ws, steamApiInterface), { scheduled: false });
+                this.task = cron.schedule(this.CRON_SCHEDULE, async () => await this.pollPlayerCount(ws, steamApiInterface, true), { scheduled: false });
                 resolve(this.task);
             } catch (error) {
                 reject(error);
@@ -21,10 +22,13 @@ class SocketDefinitions {
         });
     }
 
-    async pollPlayerCount(ws, steamApiInterface) {
+    async pollPlayerCount(ws, steamApiInterface, isCron) {
         try {
-            console.log("running cron job...");
             this.clearTimeoutInterval();
+            if (isCron) {
+                this.CRON_COUNTER++;
+                console.log("[COUNT=" + this.CRON_COUNTER + "] running cron job...");
+            }
             let playerCountData = await steamApiInterface.fetchPlayerCountData();
             ws.clients.forEach((client) => client.send(JSON.stringify(playerCountData)));
             // clear timeout and add sleep

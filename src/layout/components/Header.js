@@ -11,7 +11,7 @@ class Header extends Component {
             <div className="headerOuterBar">
                 <div className="headerInnerBar">
                     <div className="titleDiv">
-                        <p className="titleText">Steamalytics</p>
+                        <label className="titleText">Steamalytics</label>
                     </div>
                     <div className="inputDiv">
                         <input className="headerInput" placeholder="Search Game..."></input>
