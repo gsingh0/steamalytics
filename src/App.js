@@ -1,22 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
-import { Component } from 'react';
+import AppStyles from './Appstyles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Header from './layout/components/Header';
+import SDrawer from './layout/components/SDrawer';
+import Body from './layout/components/Body';
 
-import Home from './layout/pages/Home';
-
-class App extends Component {
-
-render()
-  {
-    return (
-      <div className="App">
-        <Home></Home>
-      </div>
-    )
-  }
+export default function App() { // needed to make App.js function component in order to use hooks
+  const appStyles = AppStyles();
+  return (
+    <div className="App">
+      <Header appstyles={appStyles}></Header>
+      <CssBaseline></CssBaseline>
+      <SDrawer appstyles={appStyles}></SDrawer>
+      <Body appstyles={appStyles}></Body>
+    </div>
+  )
 }
 
-export default App;
 
 
 // return (

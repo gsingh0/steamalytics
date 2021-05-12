@@ -15,12 +15,17 @@
 .playerCountLoadingIcon {
     display: flex;
     justify-content: center;
-    margin-top: 20%;
+    /* margin-top: 20%; */
+}
+
+.loader {
+    margin: 10%;
 }
 
 table {
     border-collapse: collapse;
     width: 100%;
+    margin: 1%;
 }
 
 th, td {

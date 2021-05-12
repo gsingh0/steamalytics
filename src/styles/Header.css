@@ -10,13 +10,6 @@
     margin-left: 1%;
 }
 
-.inputDiv {
-    width: 100%;
-    text-align: right;
-    margin-top: 2%;
-    margin-bottom: 1%;
-}
-
 .headerOuterBar {
     width: 100%;
     display: flex;
@@ -31,8 +24,10 @@
     border-color: #4C4847;
 }
 
-.headerInput {
-    height: 3vh;
-    width: 50%;
-    margin-right: 3%;
+.MuiAppBar-root {
+    width: 100%;
+    display: flex;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    flex-direction: column;
 }

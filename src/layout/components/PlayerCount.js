@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import '../../styles/PlayerCount.css'
 import appConfig from '../../config/app-config.json';
-import { LoopCircleLoading } from 'react-loadingg';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import PlayerCountCell from './PlayerCountCell';
 
 class PlayerCount extends Component {
@@ -26,7 +26,7 @@ class PlayerCount extends Component {
                 if (init)
                     newState[data[i].name]["noise"] = 1;
                 else
-                newState[data[i].name]["noise"] = 0;
+                    newState[data[i].name]["noise"] = 0;
             }
             resolve(newState);
         });
@@ -95,11 +95,7 @@ class PlayerCount extends Component {
         let playerCountData = this.state.playerCountData;
         if (this.state.error) {
             return (
-                <div className="playerCountOuterBody">
-                    <div className="playerCountInnerBody">
-                        <p>{this.state.errorText}</p>
-                    </div>
-                </div>
+                <p>{this.state.errorText}</p>
             )
         }
         if (Object.entries(playerCountData).length !== 0) {
@@ -115,28 +111,20 @@ class PlayerCount extends Component {
                 )
             })
             return (
-                <div className="playerCountOuterBody">
-                    <div className="playerCountInnerBody">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <td>No.</td>
-                                    <td>Game</td>
-                                    <td>Player Count</td>
-                                </tr>
-                                {fields}
-                            </thead>
-                        </table>
-                    </div>
-                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>No.</td>
+                            <td>Game</td>
+                            <td>Player Count</td>
+                        </tr>
+                        {fields}
+                    </thead>
+                </table>
             )
         } else {
             return (
-                <div className="playerCountOuterBody">
-                    <div className="playerCountLoadingIcon">
-                        <LoopCircleLoading style={{}}></LoopCircleLoading>
-                    </div>
-                </div>
+                <CircularProgress className="playerCountLoadingIcon"></CircularProgress>
             )
         }
     }

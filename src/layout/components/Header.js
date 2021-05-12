@@ -1,5 +1,10 @@
 import { Component } from 'react';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import { StylesProvider } from '@material-ui/core/styles';
 import '../../styles/Header.css';
+
 
 class Header extends Component {
     constructor() {
@@ -8,16 +13,15 @@ class Header extends Component {
 
     render() {
         return (
-            <div className="headerOuterBar">
-                <div className="headerInnerBar">
-                    <div className="titleDiv">
-                        <label className="titleText">Steamalytics</label>
-                    </div>
-                    <div className="inputDiv">
-                        <input className="headerInput" placeholder="Search Game..."></input>
-                    </div>
-                </div>
-            </div>
+            <StylesProvider injectFirst>
+                <AppBar className={this.props.appstyles.appBar}>
+                    <Toolbar>
+                        <Typography variant="h6" noWrap>
+                            Steamalytics
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+            </StylesProvider>
         )
     }
 }

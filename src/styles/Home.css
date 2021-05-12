@@ -1,3 +1,22 @@
 .homeBackground {
 
 }
+
+.playerCountCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.inputDiv {
+    width: 100%;
+    text-align: center;
+    margin-top: 2%;
+    margin-bottom: 1%;
+}
+
+.headerInput {
+    height: 3vh;
+    width: 25%;
+    text-align: center;
+}
