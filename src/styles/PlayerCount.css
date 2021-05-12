@@ -5,21 +5,35 @@
 }
 
 .playerCountInnerBody {
-    width: 70%;
+    width: 90%;
     text-align: left;
-    border-style: solid;
-    border-color: #4C4847;
     margin-bottom: 10%;
 }
 
 .playerCountLoadingIcon {
-    display: flex;
-    justify-content: center;
+    margin: 10%;
+    text-align: center;
     /* margin-top: 20%; */
 }
 
-.loader {
-    margin: 10%;
+.playerCountCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.playerCountCardLoading {
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.inputDiv {
+    width: 100%;
+    text-align: center;
+    margin-top: 2%;
+    margin-bottom: 1%;
 }
 
 table {

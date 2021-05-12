@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import '../../styles/PlayerCount.css'
+import Card from '@material-ui/core/Card';
 import appConfig from '../../config/app-config.json';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import PlayerCountCell from './PlayerCountCell';
@@ -95,7 +96,9 @@ class PlayerCount extends Component {
         let playerCountData = this.state.playerCountData;
         if (this.state.error) {
             return (
-                <p>{this.state.errorText}</p>
+                <Card className="playerCountCard" variant="outlined">
+                    <p>{this.state.errorText}</p>
+                </Card>
             )
         }
         if (Object.entries(playerCountData).length !== 0) {
@@ -111,20 +114,27 @@ class PlayerCount extends Component {
                 )
             })
             return (
-                <table>
-                    <thead>
-                        <tr>
-                            <td>No.</td>
-                            <td>Game</td>
-                            <td>Player Count</td>
-                        </tr>
-                        {fields}
-                    </thead>
-                </table>
+                <Card className="playerCountCard" variant="outlined">
+                    <div className="inputDiv">
+                        <input className="headerInput" placeholder="Search Game..."></input>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>No.</td>
+                                <td>Game</td>
+                                <td>Player Count</td>
+                            </tr>
+                            {fields}
+                        </thead>
+                    </table>
+                </Card>
             )
         } else {
             return (
-                <CircularProgress className="playerCountLoadingIcon"></CircularProgress>
+                <Card className="playerCountCardLoading" variant="outlined">
+                    <CircularProgress className="playerCountLoadingIcon"></CircularProgress>
+                </Card>
             )
         }
     }

@@ -8,12 +8,7 @@ class Home extends Component {
         return (
             <div className="playerCountOuterBody">
                 <div className="playerCountInnerBody">
-                    <Card className="playerCountCard">
-                        <div className="inputDiv">
-                            <input className="headerInput" placeholder="Search Game..."></input>
-                        </div>
-                        <PlayerCount></PlayerCount>
-                    </Card>
+                    <PlayerCount></PlayerCount>
                 </div>
             </div>
         )
