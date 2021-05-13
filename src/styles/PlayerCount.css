@@ -33,21 +33,30 @@
     width: 100%;
     text-align: center;
     margin-top: 2%;
-    margin-bottom: 1%;
+}
+
+.tableDiv {
+    display: flex;
+    justify-content: center;
+    margin: 1%;
 }
 
 table {
     border-collapse: collapse;
     width: 100%;
-    margin: 1%;
 }
 
 th, td {
     text-align: left;
     padding: 8px;
-    color: white;
+    color: black;
 }
 
-tr:nth-child(even) {background-color: #4C4847;}
-tr:nth-child(odd) {background-color: #645F5E;}
+tr:nth-child(even) {background-color: #F1F1F1;}
+tr:nth-child(odd) {background-color: #E5E5E5;}
+
+tr:hover, td:hover {
+    background-color:rgb(158, 202, 204);
+    color: white;
+}
 

@@ -33,25 +33,11 @@ class PlayerCount extends Component {
         });
     }
 
-    async noiseModel(name, state) {
-        if (name === "Dota 2")
-            console.log("creating new interval");
-        let timeout = setInterval(() => {
-            let noise = this.getRandomInteger(-5, 5);
-            state.noise = noise;
-            state.playerCount = Number(state.playerCount) + noise;
-            this.setState(prevState => ({
-                playerCountData: {
-                    ...prevState.playerCountData,
-                    [name]: state,
-                }
-            }))
-        }, this.getRandomInteger(2000, 10000));
-        return timeout;
-    }
-
-    getRandomInteger(min, max) {
-        return Math.floor(Math.random() * (max - min) + min);
+    handleSearchFilter(text) {
+        let filteredSearch = this.state.playerCountData.filter(data => {
+            return data.name.toLowerCase().includes(text);
+        });
+        this.setState({playerCountData: filteredSearch});
     }
 
     async componentDidMount() {
@@ -118,16 +104,18 @@ class PlayerCount extends Component {
                     <div className="inputDiv">
                         <input className="headerInput" placeholder="Search Game..."></input>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>No.</td>
-                                <td>Game</td>
-                                <td>Player Count</td>
-                            </tr>
-                            {fields}
-                        </thead>
-                    </table>
+                    <div className="tableDiv">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td>No.</td>
+                                    <td>Game</td>
+                                    <td>Player Count</td>
+                                </tr>
+                                {fields}
+                            </thead>
+                        </table>
+                    </div>
                 </Card>
             )
         } else {
