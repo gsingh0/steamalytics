@@ -37,16 +37,16 @@ class PlayerCount extends Component {
         let filteredSearch = this.state.playerCountData.filter(data => {
             return data.name.toLowerCase().includes(text);
         });
-        this.setState({playerCountData: filteredSearch});
+        this.setState({ playerCountData: filteredSearch });
     }
 
     async componentDidMount() {
         console.log(this.apiUrl + '/player-count');
         try {
-            let response = await fetch(this.apiUrl + '/player-count');
-            response = await response.json();
-            // let newState = await this.constructPlayerCountState(response.data, true);
-            this.setState({ playerCountData: response.data });
+            // let response = await fetch(this.apiUrl + '/player-count');
+            // response = await response.json();
+            // // let newState = await this.constructPlayerCountState(response.data, true);
+            // this.setState({ playerCountData: response.data });
 
             this.socket = new WebSocket(this.socketUrl);
             this.socket.onopen = () => {
@@ -93,7 +93,8 @@ class PlayerCount extends Component {
                     <tr key={index}>
                         <td>{index + 1}</td>
                         <td>{value[1].name}</td>
-                        <td>
+                        <td style={{ display: 'flex', alignItems: 'center' }}>
+                            <div className="fadeinout-placeholder"></div>
                             <PlayerCountCell state={value[1]}></PlayerCountCell>
                         </td>
                     </tr>
@@ -107,13 +108,11 @@ class PlayerCount extends Component {
                     <div className="tableDiv">
                         <table>
                             <thead>
-                                <tr>
-                                    <td>No.</td>
-                                    <td>Game</td>
-                                    <td>Player Count</td>
-                                </tr>
-                                {fields}
+                                <th>No.</th>
+                                <th>Game</th>
+                                <th style={{ display: 'flex', alignItems: 'center' }}><div className="fadeinout"></div> Player Count</th>
                             </thead>
+                            {fields}
                         </table>
                     </div>
                 </Card>

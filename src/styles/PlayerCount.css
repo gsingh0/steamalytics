@@ -52,11 +52,48 @@ th, td {
     color: black;
 }
 
+thead {
+    text-align: left;
+    /* padding: 8px; */
+    color: black;
+    background: #E5E5E5;
+}
+
 tr:nth-child(even) {background-color: #F1F1F1;}
 tr:nth-child(odd) {background-color: #E5E5E5;}
 
 tr:hover, td:hover {
-    background-color:rgb(158, 202, 204);
+    background-color:rgb(177, 207, 209);
     color: white;
+}
+
+th:hover, thead:hover {
+
+}
+
+.fadeinout {
+    width:10px;
+    height: 10px;
+    border-radius: 10px;
+    background: green;
+    margin-right: 5%;
+    -webkit-animation: fadeinout 2s linear infinite;
+    animation: fadeinout 2s linear infinite;
+}
+
+@-webkit-keyframes fadeinout {
+  0%,100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+@keyframes fadeinout {
+  0%,100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+.fadeinout-placeholder {
+    width:10px;
+    height: 10px;
+    margin-right: 5%;
 }
 
