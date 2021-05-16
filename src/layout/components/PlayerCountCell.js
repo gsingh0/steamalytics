@@ -8,15 +8,6 @@ class PlayerCountCell extends Component {
         this.formatNumber = new Intl.NumberFormat('en-US');
     }
 
-    componentDidMount() {
-        // this.timeout = this.props.noiseModel(this.props.state.name, this.props.state);
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.timeout);
-        console.log("timeout for " + this.props.state.name + " cleared!");
-    }
-
     render() {
         return (
             // <NumberEasing

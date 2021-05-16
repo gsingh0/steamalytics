@@ -11,7 +11,7 @@ export default function App() { // needed to make App.js function component in o
     <div className="App">
       <Header appstyles={appStyles}></Header>
       <CssBaseline></CssBaseline>
-      <SDrawer appstyles={appStyles}></SDrawer>
+      {/* <SDrawer appstyles={appStyles}></SDrawer> */}
       <Body appstyles={appStyles}></Body>
     </div>
   )

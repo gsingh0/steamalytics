@@ -4,7 +4,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { StylesProvider } from '@material-ui/core/styles';
 import '../../styles/Header.css';
-
+import { Button, ButtonGroup, Divider } from '@material-ui/core';
 
 class Header extends Component {
     constructor() {
@@ -15,11 +15,19 @@ class Header extends Component {
         return (
             <StylesProvider injectFirst>
                 <AppBar className={this.props.appstyles.appBar}>
-                    <Toolbar>
-                        <Typography variant="h6" noWrap>
-                            Steamalytics
+                    <div className="outerToolBar">
+                        <Toolbar>
+                            <Typography variant="h6" noWrap>
+                                Steamalytics
                         </Typography>
-                    </Toolbar>
+                            <Divider></Divider>
+                            <ButtonGroup variant="text" color="inherit" aria-label="text primary button group" className="headerButtonGroup">
+                                <Button>Home</Button>
+                                <Button>Charts</Button>
+                                <Button>About</Button>
+                            </ButtonGroup>
+                        </Toolbar>
+                    </div>
                 </AppBar>
             </StylesProvider>
         )

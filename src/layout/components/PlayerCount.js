@@ -12,6 +12,7 @@ class PlayerCount extends Component {
         this.apiUrl = appConfig.endpoints.environment.development.apiUrl;
         this.socket = null;
         this.state = {
+            searchText: "",
             playerCountData: {},
             error: false,
             errorText: null
@@ -89,30 +90,36 @@ class PlayerCount extends Component {
         }
         if (Object.entries(playerCountData).length !== 0) {
             fields = Object.entries(playerCountData).map((value, index) => {
-                return (
-                    <tr key={index}>
-                        <td>{index + 1}</td>
-                        <td>{value[1].name}</td>
-                        <td style={{ display: 'flex', alignItems: 'center' }}>
-                            <div className="fadeinout-placeholder"></div>
-                            <PlayerCountCell state={value[1]}></PlayerCountCell>
-                        </td>
-                    </tr>
-                )
+                if (value[1].name.toLowerCase().includes(this.state.searchText.toLowerCase())) {
+                    return (
+                        <tr key={index}>
+                            <td>{index + 1}</td>
+                            <td>{value[1].name}</td>
+                            <td style={{ display: 'flex', alignItems: 'center' }}>
+                                <div className="fadeinout-placeholder"></div>
+                                <PlayerCountCell state={value[1]}></PlayerCountCell>
+                            </td>
+                        </tr>
+                    )
+                }
             })
             return (
                 <Card className="playerCountCard" variant="outlined">
                     <div className="inputDiv">
-                        <input className="headerInput" placeholder="Search Game..."></input>
+                        <input className="headerInput" placeholder="Search Game..." onChange={(text) => this.setState({ searchText: text.target.value })}></input>
                     </div>
                     <div className="tableDiv">
                         <table>
                             <thead>
-                                <th>No.</th>
-                                <th>Game</th>
-                                <th style={{ display: 'flex', alignItems: 'center' }}><div className="fadeinout"></div> Player Count</th>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Game</th>
+                                    <th style={{ display: 'flex', alignItems: 'center' }}><div className="fadeinout"></div> Player Count</th>
+                                </tr>
                             </thead>
-                            {fields}
+                            <tbody>
+                                {fields}
+                            </tbody>
                         </table>
                     </div>
                 </Card>
