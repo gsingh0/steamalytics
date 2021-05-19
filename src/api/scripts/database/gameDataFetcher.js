@@ -58,8 +58,8 @@ async function fetchGamePlayerCount(gameData) {
 async function main() {
     try {
         let gameData = await fetchAllGameData();
-        let fileParser = new FileParser('./output/new-game-data.json');
-        await fileParser.write(JSON.stringify(gameData));
+        let fileParser = new FileParser('./output/most-popular-data.json');
+
     } catch(error) {
         console.log(error);
     }
