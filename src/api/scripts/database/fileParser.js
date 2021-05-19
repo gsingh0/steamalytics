@@ -1,8 +1,12 @@
 const fs = require('fs');
 
 class FileParser {
-    constructor() {
-        this.FILE_OUTPUT_PATH = './output/game-data.json';
+    constructor(fileOuputPath) {
+        if (fileOuputPath === undefined) {
+            this.FILE_OUTPUT_PATH = './output/game-data.json';
+        } else {
+            this.FILE_OUTPUT_PATH = fileOuputPath;
+        }
     }
 
     async write(data) {

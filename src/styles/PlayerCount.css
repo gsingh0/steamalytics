@@ -64,11 +64,6 @@ tr:nth-child(odd) {background-color: #E5E5E5;}
 
 tr:hover, td:hover {
     background-color:rgb(177, 207, 209);
-    color: white;
-}
-
-th:hover, thead:hover {
-
 }
 
 .fadeinout {

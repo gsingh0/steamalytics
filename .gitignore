@@ -7,6 +7,7 @@ node_modules/**/*
 
 # csv data
 src/api/scripts/database/data/**/*
+src/api/scripts/database/outpit/*
 
 # credential files
 src/api/service/config/steamalytics-firebase-adminsdk-v5awp-74c6fcca48.json

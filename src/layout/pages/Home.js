@@ -2,6 +2,7 @@ import { Component } from 'react';
 import PlayerCount from '../components/PlayerCount';
 import Card from '@material-ui/core/Card';
 import '../../styles/Home.css';
+import AdSense from 'react-adsense';
 
 class Home extends Component {
     render() {

@@ -1,0 +1,35 @@
+{
+    "data": [
+        {"name":"GAME","appid":0,"rating":1000000},
+
+        
+        {"name":"Destiny 2","appid":1085660,"rating":1000000},
+        {"name":"Source SDK Base 2013 Multiplayer","appid":243750,"rating":1000000},
+        {"name":"PLAYERUNKNOWN'S BATTLEGROUNDS","appid":578080,"rating":1000000},
+        {"name":"Rocket League","appid":252950,"rating":1000000},
+        {"name":"Tom Clancy's Rainbow Six Siege","appid":359550,"rating":1000000},
+        {"name":"Mass Effect™ Legendary Edition","appid":1328670,"rating":1000000},
+        {"name":"Valheim","appid":892970,"rating":1000000},
+        {"name":"Wallpaper Engine","appid":431960,"rating":1000000},
+        {"name":"FINAL FANTASY XIV Online","appid":39210,"rating":1000000},
+        {"name":"The Binding of Isaac: Rebirth","appid":250900,"rating":1000000},
+        {"name":"Football Manager 2021","appid":1263850,"rating":1000000},
+        {"name":"Sid Meier's Civilization VI","appid":289070,"rating":1000000},
+        {"name":"Resident Evil Village","appid":1196590,"rating":1000000},
+        {"name":"Subnautica: Below Zero","appid":848450,"rating":1000000},
+        {"name":"Garry's Mod","appid":4000,"rating":1000000},
+        {"name":"The Elder Scrolls Online","appid":306130,"rating":1000000},
+        {"name":"War Thunder","appid":236390,"rating":1000000},
+        {"name":"The Elder Scrolls V: Skyrim Special Edition","appid":489830,"rating":1000000},
+
+
+
+        {"name":"GAME","appid":0,"rating":1000000},
+        {"name":"GAME","appid":0,"rating":1000000},
+        {"name":"GAME","appid":0,"rating":1000000},
+        {"name":"GAME","appid":0,"rating":1000000},
+        {"name":"GAME","appid":0,"rating":1000000},
+        {"name":"GAME","appid":0,"rating":1000000}
+
+    ]
+}
