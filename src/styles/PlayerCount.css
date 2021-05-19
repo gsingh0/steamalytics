@@ -13,13 +13,11 @@
 .playerCountLoadingIcon {
     margin: 10%;
     text-align: center;
-    /* margin-top: 20%; */
 }
 
 .playerCountCard {
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
     height: 80vh;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -54,7 +52,6 @@ th, td {
 
 thead {
     text-align: left;
-    /* padding: 8px; */
     color: black;
     background: #E5E5E5;
 }
