@@ -16,7 +16,6 @@ class MultiThreading {
 
     async init() {
         this.sublists = await this.buildSublists();
-        // console.log(this.sublists.reverse());
     }
 
     async buildSublists() {

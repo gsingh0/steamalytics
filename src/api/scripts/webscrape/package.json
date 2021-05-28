@@ -1,0 +1,20 @@
+{
+  "name": "webscrape",
+  "version": "1.0.0",
+  "description": "web scraping utility package",
+  "main": "scrape.js",
+  "scripts": {
+    "test": "node scrape.js",
+    "start": "node scrape.js"
+  },
+  "keywords": [
+    "web",
+    "scraper"
+  ],
+  "author": "gurnoor singh",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.9"
+  }
+}

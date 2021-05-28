@@ -44,18 +44,12 @@ class PlayerCount extends Component {
     async componentDidMount() {
         console.log(this.apiUrl + '/player-count');
         try {
-            // let response = await fetch(this.apiUrl + '/player-count');
-            // response = await response.json();
-            // // let newState = await this.constructPlayerCountState(response.data, true);
-            // this.setState({ playerCountData: response.data });
-
             this.socket = new WebSocket(this.socketUrl);
             this.socket.onopen = () => {
                 console.log("socket connection established!");
             }
 
             this.socket.onmessage = async (res) => {
-                // let newState = await this.constructPlayerCountState(JSON.parse(res.data), false);
                 this.setState({ playerCountData: JSON.parse(res.data) })
             }
 
